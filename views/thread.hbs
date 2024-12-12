@@ -1,0 +1,36 @@
+<main class="container mt-3">
+    <div class="thread card mb-3">
+        {{#with thread}}
+        <div class="card-body">
+            <h6 class="card-title">@{{ User.username }}</h6>
+            <p class="card-text">{{ content }}</p>
+            <img src="{{ mediaUrl }}" alt="Thread Media" class="img-fluid rounded w-100">
+            <div class="d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-outline-primary btn-sm position-relative">
+                    Like
+                    <span
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary p-1">
+                        {{ totalLikes }}
+                        <span class="visually-hidden">Likes</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+        {{/with}}
+    </div>
+    <!-- Comments -->
+    <h6>Comments({{ thread.totalComments }})</h6>
+    <!-- Add Comment -->
+    <form action="" method="POST">
+        <textarea class="form-control mb-2" rows="2" placeholder="Add a comment..." name="content"
+            required></textarea>
+        <button type="submit" class="btn btn-primary btn-sm">Post</button>
+    </form>
+    {{#each comments}}
+    <div class="card my-2">
+        <div class="card-body">
+            <p><strong>@{{ User.username }}:</strong> {{ content }} </p>
+        </div>
+    </div>
+    {{/each}}
+</main>

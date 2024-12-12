@@ -1,0 +1,46 @@
+<main class="container mt-3">
+    <!-- Thread Form -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <form action="" method="POST">
+                <textarea class="form-control mb-2" rows="3" placeholder="What's on your mind?" name="content"
+                    required></textarea>
+                <div class="d-flex justify-content-between align-items-center">
+                    <input type="file" class="form-control-file form-control-sm">
+                    <button type="submit" class="btn btn-primary btn-sm">Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Threads -->
+
+    {{#each threads}}
+    <div class="thread card mb-3">
+        <div class="card-body">
+            <h6 class="card-title">@{{ User.username }}</h6>
+            <p class="card-text">{{ content }}</p>
+            <a href="/thread/{{id}}" class="link-underline-light"><img src="{{ mediaUrl }}" alt="Post Media"
+                    class="img-fluid rounded w-100"></a>
+            <div class="d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-outline-primary btn-sm position-relative">
+                    Like
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                        {{ totalLikes }}
+                        <span class="visually-hidden">Likes</span>
+                    </span>
+                </button>
+                <a type="button" class="btn btn-outline-primary btn-sm position-relative" href="/thread/{{id}}">
+                    Comments
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                        {{ totalComments }}
+                        <span class="visually-hidden">Comments</span>
+                    </span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+    {{/each}}
+
+</main>
