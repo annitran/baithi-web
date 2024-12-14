@@ -21,7 +21,7 @@
     <!-- Comments -->
     <h6>Comments({{ thread.totalComments }})</h6>
     <!-- Add Comment -->
-    <form action="" method="POST">
+    <form action="/thread/{{ thread.id }}" method="POST">
         <textarea class="form-control mb-2" rows="2" placeholder="Add a comment..." name="content"
             required></textarea>
         <button type="submit" class="btn btn-primary btn-sm">Post</button>

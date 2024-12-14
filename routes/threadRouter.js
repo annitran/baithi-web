@@ -6,4 +6,6 @@ router.get('/', controller.index);
 router.get('/profile', controller.profile);
 router.get('/thread/:id', controller.threadDetail);
 
+router.post('/thread/:id', controller.addComment);
+
 module.exports = router;

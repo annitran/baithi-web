@@ -1,4 +1,5 @@
 const controller = {};
+const { th } = require('@faker-js/faker');
 const models = require('../models');
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
@@ -75,6 +76,57 @@ controller.threadDetail = async (req, res) => {
     res.locals.comments = comments;
 
     res.render('thread');
+}
+
+controller.addComment = async (req, res) => {
+    try
+    {
+        let threadId = isNaN(req.params.id) ? 0 : parseInt(req.params.id);
+        let userId = (23880049 % 10) + 1;;
+        let { content } = req.body;
+        
+        await models.Comment.create({
+            userId: userId,
+            threadId: threadId,
+            content: content
+        }); 
+        
+        // load lai trang
+        let thread = await models.Thread.findOne({
+            where: { id: threadId },
+            attributes: ["id", "content", "mediaUrl",
+                [sequelize.literal('(SELECT COUNT(*) FROM "Likes" WHERE "Likes"."threadId" = "Thread"."id")'), 'totalLikes'],
+                [sequelize.literal('(SELECT COUNT(*) FROM "Comments" WHERE "Comments"."threadId" = "Thread"."id")'), 'totalComments']
+            ],
+            include: [{
+                model: models.User,
+                attributes: ['username']
+            }]
+        });
+    
+        let comments = await models.Comment.findAll({
+            where: { threadId: threadId },
+            include: [{
+                model: models.User,
+                attributes: ['username']
+            }],
+            order: [['createdAt', 'DESC']],
+        });
+    
+        res.locals.thread = {
+            ...thread.dataValues,
+            totalLikes: parseInt(thread.dataValues.totalLikes, 10) || 0,
+            totalComments: parseInt(thread.dataValues.totalComments, 10) || 0
+        };
+        res.locals.comments = comments;
+    
+        res.render('thread');
+    }
+    catch (error)
+    {
+        console.error(error);
+        res.status(500).send("Opps, can not post content!")
+    }
 }
 
 module.exports = controller;
