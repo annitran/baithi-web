@@ -10,7 +10,7 @@
                     Like
                     <span
                         class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary p-1">
-                        {{ totalLikes }}
+                        {{ Likes.length }}
                         <span class="visually-hidden">Likes</span>
                     </span>
                 </button>
@@ -19,7 +19,7 @@
         {{/with}}
     </div>
     <!-- Comments -->
-    <h6>Comments({{ thread.totalComments }})</h6>
+    <h6>Comments({{ comments.length }})</h6>
     <!-- Add Comment -->
     <form action="/thread/{{ thread.id }}" method="POST">
         <textarea class="form-control mb-2" rows="2" placeholder="Add a comment..." name="content"

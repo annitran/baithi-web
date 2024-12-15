@@ -26,18 +26,17 @@
                 <button type="button" class="btn btn-outline-primary btn-sm position-relative">
                     Like
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
-                        {{ totalLikes }}
+                        {{ Likes.length }}
                         <span class="visually-hidden">Likes</span>
                     </span>
                 </button>
                 <a type="button" class="btn btn-outline-primary btn-sm position-relative" href="/thread/{{id}}">
                     Comments
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
-                        {{ totalComments }}
+                        {{ Comments.length }}
                         <span class="visually-hidden">Comments</span>
                     </span>
                 </a>
-
             </div>
         </div>
     </div>

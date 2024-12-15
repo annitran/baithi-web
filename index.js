@@ -21,7 +21,9 @@ app.use(express.urlencoded({
     extended: false
 }));
 
-app.use('/', require('./routes/threadRouter'));
+app.use('/', require('./routes/indexRouter'));
+app.use('/profile', require('./routes/profileRouter'));
+app.use('/thread', require('./routes/threadRouter'));
 
 // const models = require("./models");
 // models.sequelize.sync().then(() => console.log("Created tables!"));
