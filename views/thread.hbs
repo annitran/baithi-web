@@ -1,6 +1,6 @@
 <main class="container mt-3">
+    {{#with thread}}
     <div class="thread card mb-3">
-        {{#with thread}}
         <div class="card-body">
             <h6 class="card-title">@{{ User.username }}</h6>
             <p class="card-text">{{ content }}</p>
@@ -16,21 +16,21 @@
                 </button>
             </div>
         </div>
-        {{/with}}
     </div>
     <!-- Comments -->
-    <h6>Comments({{ comments.length }})</h6>
+    <h6>Comments({{ Comments.length }})</h6>
     <!-- Add Comment -->
-    <form action="/thread/{{ thread.id }}" method="POST">
+    <form action="/thread/{{ id }}" method="POST">
         <textarea class="form-control mb-2" rows="2" placeholder="Add a comment..." name="content"
             required></textarea>
         <button type="submit" class="btn btn-primary btn-sm">Post</button>
     </form>
-    {{#each comments}}
+    {{#each Comments}}
     <div class="card my-2">
         <div class="card-body">
             <p><strong>@{{ User.username }}:</strong> {{ content }} </p>
         </div>
     </div>
     {{/each}}
+    {{/with}}
 </main>

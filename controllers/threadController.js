@@ -5,31 +5,26 @@ const models = require('../models');
 controller.threadDetail = async (req, res) => {
     let id = isNaN(req.params.id) ? 0 : parseInt(req.params.id);
     
-    let thread = await models.Thread.findOne({
+    let thread = await models.Thread.findByPk(id, {
         attributes: ["id", "content", "mediaUrl"],
-        where: { id },
         include: [{
             model: models.User,
             attributes: ['username']
         }, {
             model: models.Like,
             attributes: ['threadId']
+        }, {
+            model: models.Comment,
+            attributes: ['content'],
+            include: [{
+                model: models.User,
+                attributes: ['username']
+        }],
+        order: [['createdAt', 'DESC']],
         }],
     });
 
-    let comments = await models.Comment.findAll({
-        attributes: ['content'],
-        where: { threadId: id },
-        include: [{
-            model: models.User,
-            attributes: ['username']
-        }],
-        order: [['createdAt', 'DESC']],
-    })
-
     res.locals.thread = thread;
-    res.locals.comments = comments;
-
     res.render('thread');
 }
 
